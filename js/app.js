@@ -1,0 +1,1 @@
+$('.grandomizr').grandomizr();
