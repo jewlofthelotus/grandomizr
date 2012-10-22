@@ -23,15 +23,34 @@
                     plugin.method.reset();
                 }
 
-                var listCount    = plugin.defaults.numberOfLists.val();
-                var items        = plugin.defaults.itemList.children();
+                var listCount = plugin.defaults.numberOfLists.val();
+
+                if (plugin.defaults.itemList.is('textarea')) {
+                    var items = plugin.defaults.itemList.val().trim().replace(/\n|\r|\t/, '').split(/\s*,\s*/);
+
+                    // remove empty items
+                    items = $.grep(items,function(item){
+                        return(item);
+                    });
+                } else if (plugin.defaults.itemList.is('ul')) {
+                    var items = plugin.defaults.itemList.children();
+                }
+
+                if (items.length == 0) {
+                    alert('You have not yet entered any items to group.')
+                    return false;
+                }
 
                 if (listCount > items.length) {
                     alert('You are trying to make more groups than there are people.\n\nPlease select a group size under ' + items.length + '.')
                     return false;
                 }
 
-                var sortedList   = items.clone().sort(function() { return (Math.round(Math.random())-0.5); });
+                if (plugin.defaults.itemList.is('textarea')) {
+                    var sortedList   = items.sort(function() { return (Math.round(Math.random())-0.5); });
+                } else if (plugin.defaults.itemList.is('ul')) {
+                    var sortedList   = items.clone().sort(function() { return (Math.round(Math.random())-0.5); });
+                }
 
                 var itemsPerList = Math.floor(sortedList.length / listCount),
                     rem          = sortedList.length - (itemsPerList * listCount);
@@ -63,7 +82,12 @@
             },
 
             addItemToGroup: function(list, group) {
-                var item = list[0];
+                if (plugin.defaults.itemList.is('textarea')) {
+                    var item = '<li>' + list[0] + '</li>';
+                } else if (plugin.defaults.itemList.is('ul')) {
+                    var item = list[0];
+                }
+
                 group.append(item);
 
                 // remove it from the list
@@ -75,6 +99,7 @@
             // Bind "grandomize" button
             $element.find('input[type="submit"]').on('click', function(e) {
                 e.preventDefault();
+                plugin.defaults.itemList = $('.togroup');
                 plugin.method.grandomize();
             });
         }

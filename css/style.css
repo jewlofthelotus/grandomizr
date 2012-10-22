@@ -99,11 +99,8 @@ div[role="main"] {
   padding: 20px;
 }
 
-.grandomizr {}
-.grandomizr .items {
-  list-style-type: none;
-  line-height: 1.8em;
-  padding-left: 20px;
+.ul {
+  display: none;
 }
 
 footer {

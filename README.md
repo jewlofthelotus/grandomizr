@@ -19,10 +19,17 @@ To initialize your quiz:
 
 ## Base HTML Structure
 
+There are two ways to set up the page
+
+1. By placing an unordered list of items on the page
+1. By placing a textarea on the page containing comma separated values (CSVs)
+
 The slickQuiz ID and class names are what are important here:
 
+**Unordered List Setup**
+
     <div class="grandomizr">
-        <ul class="items togroup">
+        <ul class="togroup">
             <li>Brad Pitt</li>
             <li>Angelina Jolie</li>
             <li>Matt Damon</li>
@@ -48,5 +55,33 @@ The slickQuiz ID and class names are what are important here:
         </div>
     </div>
 
+**Textarea w/ CSV List Setup**
+
+    <div class="grandomizr">
+        <textarea class="togroup">
+            Brad Pitt,
+            Angelina Jolie,
+            Matt Damon,
+            Ben Affleck,
+            Tom Cruise,
+            Anne Hathaway,
+            Leonardo DiCaprio,
+            Tom Hanks,
+            Nicole Kidman,
+            Johnny Depp,
+            Jennifer Aniston,
+            Samuel L. Jackson,
+            Charlize Theron,
+            Christian Bale,
+            Milla Jovovich
+        </textarea>
+        <form>
+            <label>Number of Groups:</label><br />
+            <input type="number" value="5" name="group_number" id="group_number" />
+            <input type="submit" value="Grandomize!" class="grandomize" />
+        </form>
+        <div class="groups"></div>
+        </div>
+    </div>
 
 Created by [Julie Bellinson](http://jewlofthelotus.com) - Software Engineer at [Quicken Loans](http://quickenloans.com), Detroit, MI
